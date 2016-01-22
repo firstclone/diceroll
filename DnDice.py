@@ -1,4 +1,5 @@
 import random
+from sys import exit
 
 def help():
     print 'Functions:'
@@ -11,6 +12,12 @@ def help():
     print 'Save---rolls for a death-saving throw.'
     print 'Help---show functions available.'
     print 'Exit---closes the program.'
+    run = raw_input('Enter Function: ').lower().strip()
+    if run == 'exit':
+        raise SystemExit
+    else:
+        try: functions.get(run)()
+        except: help()
     
 def roll():
     dice = int(raw_input('Number of dice: '))
@@ -25,7 +32,13 @@ def roll():
         dice = dice - 1
     final = total + bonus
     print 'Total:', final
-    
+    run = raw_input('Enter Function: ').lower().strip()
+    if run == 'exit':
+        raise SystemExit
+    else:
+        try: functions.get(run)()
+        except: roll()
+        
 def top():
     all_dice = int(raw_input('Total number of dice rolled: '))
     top_dice = int(raw_input('Number of dice kept: '))
@@ -52,6 +65,12 @@ def top():
     for x in range (top_dice):
         top_rolls = top_rolls + rolls[x]
     print top_rolls
+    run = raw_input('Enter Function: ').lower().strip()
+    if run == 'exit':
+        raise SystemExit
+    else:
+        try: functions.get(run)()
+        except: top()
 
 def char():
     all_dice = 4
@@ -111,6 +130,12 @@ def char():
     for x in range (top_dice):
         top_rolls = top_rolls + rolls[x]
     print 'Cha:', top_rolls
+    run = raw_input('Enter Function: ').lower().strip()
+    if run == 'exit':
+        raise SystemExit
+    else:
+        try: functions.get(run)()
+        except: char()
     
 def check():
     abscore = int(raw_input('Ability Score: '))
@@ -139,6 +164,12 @@ def check():
     abbonus = abil.get(abscore, -5)
     score = roll + profbonus + abbonus
     print score
+    run = raw_input('Enter Function: ').lower().strip()
+    if run == 'exit':
+        raise SystemExit
+    else:
+        try: functions.get(run)()
+        except: check()
 	
 def save():
     roll = random.randint(1,20)
@@ -150,14 +181,13 @@ def save():
         print 'Success'
     if roll == 20:
         print 'Critical Success! +1 HP'
-        
-functions = {'help': help, 'roll': roll, 'top': top, 'char': char, 'check': check, 'save': save}
-help()
-run = None
-
-while True:
     run = raw_input('Enter Function: ').lower().strip()
     if run == 'exit':
-        break
+        raise SystemExit
     else:
-        functions.get(run)()
+        try: functions.get(run)()
+        except: save()
+        
+functions = {'help': help, 'roll': roll, 'top': top, 'char': char, 'check': check, 'save': save}
+run = None
+help()
