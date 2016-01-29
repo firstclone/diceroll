@@ -1,10 +1,8 @@
 import random
-dice = int(raw_input('Number of dice: '))
-sides = int(raw_input('Number of sides: '))
-bonus = int(raw_input('Bonus: '))
+def roll(d,s,b):
 total = 0
-while dice > 0:
-    total = total + random.randint(1,sides)
-    dice = dice - 1
-final = total + bonus
+while d > 0:
+    total = total + random.randint(1,s)
+    d = d - 1
+final = total + b
 print final
